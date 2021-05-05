@@ -1,10 +1,10 @@
 ﻿class MudScrollManager {
     //scrolls to an Id. Useful for navigation to fragments
-    scrollToFragment (elementId, behavior) {
+    scrollToFragment (elementId, behavior, verticalAlignment, horizontalAlignment) {
         let element = document.getElementById(elementId);
 
         if (element) {
-            element.scrollIntoView({ behavior, block: 'center', inline: 'start' });
+            element.scrollIntoView({ behavior: behavior, block: verticalAlignment, inline: horizontalAlignment });
         }
     }
 
@@ -55,7 +55,7 @@
     //scrolls to the selected element. Default is documentElement (i.e., html element)
     scrollTo (selector, left, top, behavior) {
         let element = document.querySelector(selector) || document.documentElement;
-        element.scrollTo({ left, top, behavior });
+        element.scrollTo({ left: left, top: top, behavior: behavior });
     }
 
     //locks the scroll of the selected element. Default is body

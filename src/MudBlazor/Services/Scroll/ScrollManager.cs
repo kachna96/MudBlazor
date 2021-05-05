@@ -20,7 +20,7 @@ namespace MudBlazor
         Task ScrollToTop(ScrollBehavior scrollBehavior = ScrollBehavior.Auto);
 
         ValueTask ScrollToAsync(string id, int left, int top, ScrollBehavior scrollBehavior);
-        ValueTask ScrollToFragmentAsync(string id, ScrollBehavior behavior);
+        ValueTask ScrollToFragmentAsync(string id, ScrollBehavior behavior, ScrollVerticalAlignment verticalAlignment = ScrollVerticalAlignment.Center, ScrollHorizontalAlignment horizontalAlignment = ScrollHorizontalAlignment.Start);
         ValueTask ScrollToTopAsync(string id, ScrollBehavior scrollBehavior = ScrollBehavior.Auto);
         ValueTask ScrollToYearAsync(string elementId);
         ValueTask ScrollToListItemAsync(string elementId, int increment, bool onEdges);
@@ -45,9 +45,11 @@ namespace MudBlazor
         /// </summary>
         /// <param name="id">The id of the selector that is going to be scrolled to</param>
         /// <param name="behavior">smooth or auto</param>
+        /// <param name="verticalAlignment">vertical alignment option</param>
+        /// <param name="horizontalAlignment">horizontal alignment option</param>
         /// <returns></returns>
-        public ValueTask ScrollToFragmentAsync(string id, ScrollBehavior behavior) =>
-            _jSRuntime.InvokeVoidAsync("mudScrollManager.scrollToFragment", id, behavior.ToDescriptionString());
+        public ValueTask ScrollToFragmentAsync(string id, ScrollBehavior behavior, ScrollVerticalAlignment verticalAlignment = ScrollVerticalAlignment.Center, ScrollHorizontalAlignment horizontalAlignment = ScrollHorizontalAlignment.Start) =>
+            _jSRuntime.InvokeVoidAsync("mudScrollManager.scrollToFragment", id, behavior.ToDescriptionString(), verticalAlignment.ToDescriptionString(), horizontalAlignment.ToDescriptionString());
 
         [Obsolete]
         public async Task ScrollToFragment(string id, ScrollBehavior behavior) =>
@@ -105,5 +107,21 @@ namespace MudBlazor
     {
         Smooth,
         Auto
+    }
+
+    public enum ScrollVerticalAlignment
+    {
+        Start,
+        Center,
+        End,
+        Nearest
+    }
+
+    public enum ScrollHorizontalAlignment
+    {
+        Start,
+        Center,
+        End,
+        Nearest
     }
 }
